@@ -22,7 +22,10 @@ type GitLabClient struct {
 
 // NewGitLabClient creates a new GitLab client
 //
-// Uses auth token from tokenEnv > GITLAB_ENV > no auth token, uses https://gitlab.com as the base URL if none is provided
+// Token resolution order: tokenEnv > GITLAB_TOKEN > no auth token.
+// If tokenEnv is a non-default env var name and is not set, an error is returned.
+// If GITLAB_TOKEN is not set, the client is created without authentication.
+// Defaults to https://gitlab.com as the base URL if none is provided.
 func NewGitLabClient(client *http.Client, base string, tokenEnv string) (*GitLabClient, error) {
 	if tokenEnv == "" {
 		tokenEnv = "GITLAB_TOKEN"

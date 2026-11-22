@@ -23,7 +23,9 @@ type GitHubClient struct {
 
 // NewGitHubClient creates a new GitHub client
 //
-// Uses auth token from tokenEnv > GITHUB_ENV > no auth token
+// Token resolution order: tokenEnv > GITHUB_TOKEN > no auth token.
+// If tokenEnv is a non-default env var name and is not set, an error is returned.
+// If GITHUB_TOKEN is not set, the client is created without authentication.
 func NewGitHubClient(client *http.Client, base string, tokenEnv string) (*GitHubClient, error) {
 	var opts []github.ClientOptionsFunc
 	if client != nil {

@@ -39,9 +39,7 @@ type Step struct {
 	Shell string `json:"shell,omitempty"`
 	// Set how long to run the command before timing out
 	Timeout string `json:"timeout,omitempty"`
-	// Mute controls whether the rendered script, STDOUT and STDERR are printed
-	//
-	// it is similar to set +x and 2>&1 >/dev/null
+	// Mute suppresses STDOUT and STDERR for the current script. Has no effect on uses.
 	Mute bool `json:"mute,omitempty"`
 }
 

@@ -119,8 +119,8 @@ func Publish(ctx context.Context, dst *remote.Repository, entrypoints []string) 
 		if err != nil {
 			return err
 		}
-		// replicates id() method on store and local fetcher
-		// should dedupe logic
+		// Strip scheme and query to produce a relative path for the OCI layer name.
+		// Note: this differs from LocalStore.id() which preserves the scheme and strips User instead.
 		uri.Scheme = ""
 		uri.RawQuery = ""
 		rel := uri.String()
